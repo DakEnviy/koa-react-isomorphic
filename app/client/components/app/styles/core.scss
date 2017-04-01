@@ -1,0 +1,14 @@
+/* STUFF IMPORTED BY EVERY COMPONENT STYLE
+   =============================================== */
+
+@import "vars";
+@import "mixins";
+@import "reset";
+@import "grid";
+
+html {
+  font-family: $base-font-family;
+  color: $color-text;
+  background-color: $color-bg;
+  touch-action: manipulation; // iOS fast tap
+}

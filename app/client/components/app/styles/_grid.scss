@@ -1,0 +1,60 @@
+/* GRID
+   =============================================== */
+
+@import "~gridle/sass/gridle/gridle";
+@import "vars";
+@import "mixins";
+
+$settings : (
+    context : 12,           // number of columns in your grid
+    column-width : null,    // by default it's percentage based depending on the context but you can specify a column width yourself
+    gutter-width : 20px,    // size of the gutters
+    gutter-height : 0,      // size of top and bottom gutters
+    gutter-top : 0,         // size of top gutter
+    gutter-bottom : 0,      // size of bottom gutter
+    gutter-left : 10px,     // size of left gutter
+    gutter-right : 10px,    // size of right gutter
+    direction : ltr,        // direction
+    dir-attribute : false,  // if need to generate support for dir="rtl" in order to set part of layout direction
+    states-classes : false, // if we need to generate the states classes
+    name-multiplicator : 1, // if 5, generate gr-5, gr-10, etc...
+    classes-prefix : ''     // the prefix used for all classes
+);
+@include gridle_setup($settings);
+
+// Breakpoints
+@each $key, $value in $breakpoints {
+  @include gridle_register_state($key, (
+    query: mq-parse-query($value)
+  ));
+}
+
+// Containers
+.guttered-block {
+  padding: map-get($settings, gutter-top) map-get($settings, gutter-right) map-get($settings, gutter-bottom) map-get($settings, gutter-left);
+}
+.container-fluid {
+  width: 100%;
+  @extend .guttered-block;
+}
+.container {
+  margin: auto;
+  @extend .container-fluid;
+  @each $key, $value in $containers {
+    @include gridle_apply_css_for(container, (
+        width: $value + map-get($settings, gutter-width)
+    ), $key);
+  }
+}
+
+// Fonts
+html {
+  @each $key, $value in $font-size {
+    @include mq(map-get($breakpoints, $key)) {
+      font-size: $value;
+      line-height: map-get($line-height, $key);
+    }
+  }
+}
+
+@include gridle_generate_classes();

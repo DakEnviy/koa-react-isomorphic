@@ -1,0 +1,68 @@
+
+@import "vars";
+
+
+/* MIXINS
+   =============================================== */
+
+// text ellipsis
+@mixin text-clip() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// absolute center
+@mixin center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// children center
+@mixin center-child() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* UTILS
+   =============================================== */
+
+// rem conversion
+@function rem($size) {
+  $remSize: $size / $base-font-size;
+  @return $remSize + 0rem;
+}
+
+// em conversion
+@function em($size, $context-size: $base-font-size) {
+  $emSize: $size / $context-size;
+  @return $emSize + 0em;
+}
+
+@function mq-parse-query($query) {
+  $mq: 'only screen ';
+  @if length($query) == 1 {
+    @return $mq + 'and (min-width: ' + $query + ')';
+  }
+  @if (type-of(nth($query, 1)) == 'string' and type-of(nth($query, 2)) == 'number') {
+    @return $mq + 'and (' + nth($query, 1) + ': ' + nth($query, 2) + ')';
+  }
+  @if (type-of(nth($query, 1)) == 'number' and type-of(nth($query, 2)) == 'number') {
+    @return $mq + 'and (min-width: ' + nth($query, 1) + ') and (max-width: ' + nth($query, 2) + ' )';
+  }
+  @each $single-query in $query {
+    $mq: $mq + 'and (' + nth($query, 1) + ': ' + nth($query, 2) + ')';
+  }
+  @return $mq;
+}
+
+// breakpoint
+@mixin mq($query) {
+  @media #{mq-parse-query($query)} {
+    @content;
+  }
+}

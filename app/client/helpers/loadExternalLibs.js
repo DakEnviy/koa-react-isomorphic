@@ -1,2 +1,2 @@
-import 'bootstrap/less/bootstrap.less';
-import 'font-awesome/less/font-awesome.less';
+import 'normalize.css/normalize.css';
+import '../components/app/styles/core.scss';

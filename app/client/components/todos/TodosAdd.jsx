@@ -32,7 +32,7 @@ export default class TodosAdd extends React.PureComponent {
               value={this.state.todo} onChange={this.updateTodo}
             />
           </div>
-          <button type="button" className="btn btn-success" onClick={this.addTodo}>Add Todo</button>
+          <button type="button" className="btn btn-success" onClick={this.addTodo}>Add todo</button>
         </div>
       </div>
     );

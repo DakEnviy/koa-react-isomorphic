@@ -2,13 +2,14 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import partial from 'lodash/partial';
-import style from './TodosBodyStyle.css';
 import type { CompleteTodoActionType, RemoveTodoActionType, TodoType } from './types';
+
+import './TodosBodyStyle.scss';
 
 const TodosBody = ({ todos, completeTodo, removeTodo }: {
  todos: TodoType[], completeTodo: CompleteTodoActionType, removeTodo: RemoveTodoActionType,
 }) => (
-  <div className={`col-md-12 ${style.container}`}>
+  <div className="col-md-12 todo-container">
     <table className="table">
       <tbody>
         {

@@ -12,17 +12,21 @@ import type {
   TodoType
 } from './types';
 
+/* Constants */
 export const mountPoint = 'todos';
 
+/* Selectors */
 export const selectors = globalizeSelectors({
   getTodos: identity,
 }, mountPoint);
 
+/* Types */
 export const ADD_TODO = 'todos/ADD_TODO';
 export const REMOVE_TODO = 'todos/REMOVE_TODO';
 export const COMPLETE_TODO = 'todos/COMPLETE_TODO';
 export const SET_TODOS = 'todos/SET_TODOS';
 
+/* Actions */
 export const addTodo: AddTodoActionType = createAction(ADD_TODO);
 export const removeTodo: RemoveTodoActionType = createAction(REMOVE_TODO);
 export const completeTodo: CompleteTodoActionType = createAction(COMPLETE_TODO);
@@ -32,6 +36,7 @@ export const fetchTodos = () => (dispatch: Function): Promise<TodoType[]> =>
     .then(res => res.json())
     .then((res: TodoType[]) => dispatch(setTodos(res)));
 
+/* Reducer */
 export default handleActions({
   [ADD_TODO]: (state, { payload: text }) => [
     ...state, { text, complete: false },

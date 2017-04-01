@@ -1,0 +1,58 @@
+/* MEDIA QUERIES
+   =============================================== */
+
+$breakpoints: (
+    ms: max-width 479px,
+    xs: 480px,
+    sm: 768px,
+    md: 992px,
+    lg: 1200px
+);
+
+$containers: (
+    sm: 720px,
+    md: 940px,
+    lg: 1140px
+);
+
+
+/* TYPOGRAPHY
+   =============================================== */
+
+$font-size: (
+    sm: 16px,
+    md: 16px,
+    lg: 18px,
+);
+
+$line-height: (
+    sm: 22px,
+    md: 22px,
+    lg: 24px,
+);
+
+$base-font-family: sans-serif;
+$base-font-size: map-get($font-size, sm);
+
+
+/* COLORS
+   =============================================== */
+
+$color-bg: #ffffff;
+$color-text: #333333;
+$color-error: #f12a33;
+$color-warn: #ff9911;
+$color-primary: #1ea0f5;
+$color-secondary: #e84c09;
+
+
+/* CROSS APP / COMPONENTS VARIABLES
+   =============================================== */
+
+
+
+
+/* OTHER
+   =============================================== */
+
+$nice-ease: cubic-bezier(0.62, 0.28, 0.23, 0.99);
