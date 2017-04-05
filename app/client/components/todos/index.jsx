@@ -8,7 +8,7 @@ import TodosAdd from './TodosAdd';
 import TodosBody from './TodosBody';
 import TodosFooter from './TodosFooter';
 import type { TodoType } from './types';
-import { addTodo, completeTodo, fetchTodos, removeTodo, selectors } from './logicBundle';
+import { apiAddTodo, completeTodo, fetchTodos, removeTodo, selectors } from './logicBundle';
 import { updateLink } from '../helmet/logicBundle';
 import createRedialHooks from '../../helpers/createRedialHooks';
 import { FETCH_DATA_HOOK, INJECT_PRELOAD_LINK_HOOK } from '../../helpers/fetchData';
@@ -17,7 +17,7 @@ export const Todos = ({ todos, actions }: { todos: TodoType[], actions: Object }
   <div className="container">
     <div className="row">
       <TodosHeader />
-      <TodosAdd addTodo={actions.addTodo} />
+      <TodosAdd apiAddTodo={actions.apiAddTodo} />
       <TodosBody
         todos={todos}
         removeTodo={actions.removeTodo}
@@ -42,7 +42,7 @@ export const enhance = compose(
     }),
     dispatch => ({
       actions: bindActionCreators({
-        addTodo,
+        apiAddTodo,
         removeTodo,
         completeTodo,
       }, dispatch),

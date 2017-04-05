@@ -9,6 +9,7 @@ import type {
   CompleteTodoActionType,
   RemoveTodoActionType,
   SetTodosActionType,
+  ApiAddTodoActionType,
   TodoType
 } from './types';
 
@@ -31,6 +32,17 @@ export const addTodo: AddTodoActionType = createAction(ADD_TODO);
 export const removeTodo: RemoveTodoActionType = createAction(REMOVE_TODO);
 export const completeTodo: CompleteTodoActionType = createAction(COMPLETE_TODO);
 export const setTodos: SetTodosActionType = createAction(SET_TODOS);
+export const apiAddTodo: ApiAddTodoActionType = (text: string) => {
+  return (dispatch: Function): Promise<TodoType> => {
+    return fetch(getUrl('/api/v1/todo'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    })
+      .then(res => res.json())
+      .then(({ text: _text }: { text: string }) => dispatch(addTodo(_text)));
+  };
+};
 export const fetchTodos = () => (dispatch: Function): Promise<TodoType[]> =>
   fetch(getUrl('/api/v1/todos'))
     .then(res => res.json())

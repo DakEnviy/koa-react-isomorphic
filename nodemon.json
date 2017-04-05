@@ -2,8 +2,10 @@
   "watch": [
     "config/initializers",
     "config/middlewares",
-    "app/server/apis",
-    "app/server/controllers",
+    "app/server/application/apis",
+    "app/server/application/controllers",
+    "app/server/domain",
+    "app/server/infrastructure",
     "app/server-app.js",
     "app/server.js",
     "prod-server.js"

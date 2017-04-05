@@ -1,34 +1,39 @@
 /* @flow */
 import DataLoader from 'dataloader';
-import database from '../database';
 import Todo from '../../domain/Todo';
 
-type RawTodoType = {
-  id: string,
+type TodoRawType = {
+  id: number,
+  text: string,
+  complete: boolean,
+  toJSON: Function
+};
+type TodoOutType = {
+  id: number,
   text: string,
   complete: boolean,
 };
 
-const builder = (todo: RawTodoType): Todo =>
-  new Todo(todo.id, todo.text, todo.complete);
+// noinspection JSUnresolvedFunction
+const builder = (todo: TodoRawType): TodoOutType =>
+  todo.toJSON();
 
 const dataloader = new DataLoader(
   // $FlowFixMe
-  (ids: string[]): Promise<Array<Todo | Error>> => {
-    const set: Set<string> = new Set(ids);
-
-    return Promise.resolve(
-      database.todos
-        .filter(({ id }: RawTodoType) => set.has(id))
-        .map(builder)
-    );
+  (ids: number[]): Promise<Array<TodoOutType | Error>> => {
+    return Todo.findAll({ where: { id: ids } })
+      .then(todos => todos.map(builder));
   }
 );
 
-export const count = (): number => database.todos.length;
+export const count = (): Promise<number> => Todo.count();
 
-export const all = (): Promise<Todo[]> => Promise.resolve(database.todos.map(builder));
+export const all = (): Promise<TodoOutType[]> => Todo.findAll().then(todos => todos.map(builder));
 
-export const getById = (id: string): Promise<Todo> => dataloader.load(id);
+export const add = (text: string): Promise<TodoOutType> => {
+  return Todo.create({ text, complete: false }).then(builder);
+};
 
-export const getByIds = (ids: string[]): Promise<Todo[]> => dataloader.loadMany(ids);
+export const getById = (id: number): Promise<TodoOutType> => dataloader.load(id);
+
+export const getByIds = (ids: number[]): Promise<TodoOutType[]> => dataloader.loadMany(ids);

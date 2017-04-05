@@ -11,6 +11,7 @@
 
 [options]
 module.system=haste
+esproposal.decorators=ignore
 
 # alias for babel-plugin-module-alias
 module.name_mapper='^app\/\(.*\)$' -> '<PROJECT_ROOT>/app/\1'

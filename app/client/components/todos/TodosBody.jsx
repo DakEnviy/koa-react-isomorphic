@@ -9,7 +9,7 @@ import './TodosBodyStyle.scss';
 const TodosBody = ({ todos, completeTodo, removeTodo }: {
  todos: TodoType[], completeTodo: CompleteTodoActionType, removeTodo: RemoveTodoActionType,
 }) => (
-  <div className="col-md-12 todo-container">
+  <div className="gr-12@md todo-container">
     <table className="table">
       <tbody>
         {

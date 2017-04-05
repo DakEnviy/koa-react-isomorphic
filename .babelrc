@@ -1,5 +1,5 @@
 {
-  "presets": ["./scripts/preset-es2015", "react", "stage-0"],
+  "presets": ["es2015-node5", "react", "stage-0"],
   "plugins": [
     "transform-runtime",
     ["module-resolver", {
@@ -10,7 +10,8 @@
         "client": "./app/client",
         "server": "./app/server"
       }
-    }]
+    }],
+    "transform-decorators-legacy"
   ],
   "env": {
     "development": {

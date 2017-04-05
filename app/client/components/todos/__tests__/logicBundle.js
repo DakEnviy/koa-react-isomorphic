@@ -2,7 +2,7 @@
 import { assert } from 'chai';
 import td from 'testdouble';
 import nock from 'nock';
-import reducer, { addTodo, completeTodo, fetchTodos, removeTodo, setTodos } from '../logicBundle';
+import reducer, { addTodo, completeTodo, fetchTodos, removeTodo, setTodos, apiAddTodo } from '../logicBundle';
 
 describe('Module: Todos', () => {
   describe('Actions', () => {
@@ -41,6 +41,24 @@ describe('Module: Todos', () => {
         await action(callback);
 
         td.verify(callback(setTodos(todos)));
+      });
+    });
+    context('apiAddTodo', () => {
+      const todo = 'do chore';
+      let RUNTIME_ENV;
+
+      before(() => {
+        RUNTIME_ENV = process.env.RUNTIME_ENV;
+
+        process.env.RUNTIME_ENV = 'server';
+
+        nock(`http://localhost:${process.env.PORT}`)
+        .post('/api/v1/todo')
+        .reply(200, todo);
+      });
+
+      after(() => {
+        process.env.RUNTIME_ENV = RUNTIME_ENV;
       });
     });
   });
